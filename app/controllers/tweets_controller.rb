@@ -3,6 +3,7 @@ class TweetsController < ApplicationController
   # GET /tweets.json
   def index
     @tweets = Tweet.all
+    @tweet = Tweet.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,25 +13,25 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1
   # GET /tweets/1.json
-  def show
-    @tweet = Tweet.find(params[:id])
+  # def show
+  # @tweet = Tweet.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @tweet }
-    end
-  end
+  #  respond_to do |format|
+  #    format.html # show.html.erb
+  #    format.json { render json: @tweet }
+  #  end
+  # end
 
   # GET /tweets/new
   # GET /tweets/new.json
-  def new
-    @tweet = Tweet.new
+  # def new
+  # @tweet = Tweet.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @tweet }
-    end
-  end
+  #  respond_to do |format|
+  #    format.html # new.html.erb
+  #   format.json { render json: @tweet }
+  #  end
+  # end
 
   # GET /tweets/1/edit
   def edit
@@ -44,14 +45,17 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
+        format.html { redirect_to  tweets_path, notice: 'Tweet was successfully created.' }
         format.json { render json: @tweet, status: :created, location: @tweet }
       else
-        format.html { render action: "new" }
+        format.html do
+         @tweets = Tweet.all
+         render action: "index"
+        end
+
         format.json { render json: @tweet.errors, status: :unprocessable_entity }
       end
     end
-  end
 
   # PUT /tweets/1
   # PUT /tweets/1.json
