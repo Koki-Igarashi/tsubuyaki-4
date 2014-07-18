@@ -1,10 +1,12 @@
-Tsubuyaki4::Application.routes.draw
+Tsubuyaki4::Application.routes.draw do
   devise_for :users
+
   resources :tweets , except: [:new, :show] do
      post :favorite
-end
+  end
 
   root to: 'tweets#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
